@@ -102,7 +102,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -113,10 +113,22 @@ def problem2a(circle, rectangle, window):
     circle.attach_to(window)
     rectangle.attach_to(window)
     window.render()
-    window.continue_on_mouse_click(
+    window.continue_on_mouse_click()
+
+    start = rg.Point(rectangle.get_upper_right_corner().x, rectangle.get_upper_right_corner().y)
+    end = rg.Point(rectangle.get_lower_left_corner().x, rectangle.get_lower_left_corner().y)
+    line = rg.Line(start, end)
+    line.arrow = 'last'
+    line.attach_to(window)
+
+    window.render()
+    window.continue_on_mouse_click()
+
+    circle.fill_color = rectangle.outline_color
+    window.render()
 
 
-    )
+
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
     print()
@@ -179,7 +191,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -187,7 +199,26 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # ------------------------------------------------------------------
+    rect.attach_to(win)
+    start_x = rect.get_upper_left_corner().x - delta
+    start_y = rect.get_upper_left_corner().y - delta
 
+    end_x = rect.get_lower_right_corner().x + delta
+    end_y = rect.get_lower_right_corner().y + delta
+
+    for _ in range(n):
+        start = rg.Point(start_x, start_y)
+        end = rg.Point(end_x, end_y)
+        rectangle = rg.Rectangle(start, end)
+        rectangle.attach_to(win)
+
+        start_x=start_x-delta
+        start_y=start_y-delta
+
+        end_x=end_x+delta
+        end_y=end_y+delta
+
+    win.render()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
